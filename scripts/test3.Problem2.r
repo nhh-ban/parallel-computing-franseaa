@@ -12,10 +12,18 @@ simTweedieTest <-
 
 
 # Assignment 2:  
+
+max_cores <- 8
+Cores <- min(parallel::detectCores(), max_cores)
+cl <- makeCluster(Cores)
+registerDoParallel(cl)
+
 MTweedieTests <-  
   function(N,M,sig){ 
     sum(replicate(M,simTweedieTest(N)) < sig)/M 
   } 
+
+stopCluster(cl)
 
 
 # Assignment 3:  
