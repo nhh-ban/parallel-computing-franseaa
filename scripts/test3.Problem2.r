@@ -16,17 +16,18 @@ simTweedieTest <-
 
 max_cores <- 8
 Cores <- min(parallel::detectCores(), max_cores)
-#cl <- makeCluster(Cores)
-#registerDoParallel(cl)
-
 plan(multisession, workers = Cores)
-MTweedieTests <-  
-  function(N,M,sig){ 
-    results <- future_map_dbl(1:M, ~ simTweedieTest(N))
-    sum(results < sig)/M 
-  } 
 
-#stopCluster(cl)
+#MTweedieTests <-  
+#  function(N,M,sig){ 
+#    sum(replicate(M,simTweedieTest(N)) < sig)/M 
+#  } 
+
+
+MTweedieTests <- function(N,M,sig) {
+  res <- future_map2_dbl(1:M, 1:M, ~ simTweedieTest(N))
+  sum(res < sig)/M
+}
 
 
 # Assignment 3:  
