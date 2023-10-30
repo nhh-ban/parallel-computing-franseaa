@@ -2,6 +2,7 @@
 library(tweedie) 
 library(ggplot2)
 library(furrr)
+library(doParallel)
 
 simTweedieTest <-  
   function(N){ 
@@ -16,14 +17,17 @@ simTweedieTest <-
 
 max_cores <- 8
 Cores <- min(parallel::detectCores(), max_cores)
-plan(multisession, workers = Cores)
+#cl <- makeCluster(Cores)
+#registerDoParallel(cl)
 
 #MTweedieTests <-  
 #  function(N,M,sig){ 
 #    sum(replicate(M,simTweedieTest(N)) < sig)/M 
 #  } 
+#
+#stopCluster(cl)
 
-
+plan(multisession, workers = Cores)
 MTweedieTests <- function(N,M,sig) {
   res <- future_map2_dbl(1:M, 1:M, ~ simTweedieTest(N))
   sum(res < sig)/M

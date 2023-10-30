@@ -27,7 +27,7 @@ toc()
 
 #Answer: When trying to rewrite the function MTweedieTests, it clocks in at 41 second
 # However, this is not expected and a bunch of warning messages appears, which
-# may indicate that something has been done wrong in the conding, but I am
+# may indicate that something has been done wrong in the coding, but I am
 # not sure what that may be. 
 
 
@@ -38,3 +38,9 @@ toc()
 # The code in test 3 may not be done correct; the unexpected time it
 # took to run the script, indicates something was wrong since a quicker
 # time was expected. 
+# When changing the function in test 3, I also tried using the doParallel package,
+# as one can see in the script named test3.Problem2.R. 
+# I am not sure that I got an improvement from this, so I therefore tried out 
+# the furrr package here as well. 
+# What is clear form the timer above, is that using parallel computing
+# makes the script (or part of script) run faster. 
