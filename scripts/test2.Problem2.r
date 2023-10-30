@@ -28,18 +28,17 @@ df <-
 
 max_cores <- 8
 Cores <- min(parallel::detectCores(), max_cores)
-cl <- makeCluster(Cores)
-registerDoParallel(cl)
+plan(multisession, workers = Cores)
 
-for(i in 1:nrow(df)){ 
-  df$share_reject[i] <-  
-    MTweedieTests( 
-      N=df$N[i], 
-      M=df$M[i], 
-      sig=.05) 
-} 
+df$share_reject <-  
+  df %>% 
+  future_map2_dbl( 
+    as.list(df$N), 
+    as.list(df$M), 
+    as.list(.05),
+    MTweedieTests,
+    df = .) 
 
-stopCluster(cl)
 
 
 
