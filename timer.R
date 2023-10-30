@@ -36,5 +36,5 @@ toc()
 # when using parallel computing, the script are running a lot faster in test 2
 # where the results from test 2 is better than test 1. 
 # The code in test 3 may not be done correct; the unexpected time it
-# took to run the script, indicates something was wrong, since a quicker
+# took to run the script, indicates something was wrong since a quicker
 # time was expected. 
